@@ -1,0 +1,58 @@
+.contain{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    gap: 20px;
+    height: 60vh;
+    width: 25vw;
+    justify-content: center;
+}
+.main{
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+.dis{
+    outline: none;
+    border: 2px solid rgba(128, 128, 128, 0.356);
+    transition: 0.2s;
+    padding: 20px;
+    border-radius: 30px;
+    font-size: 20px;
+    height: 200px;
+}
+.dis:hover{
+   border:2px solid  rgb(126, 36, 190);  
+}
+.dis:focus{
+    border:2px solid  rgb(126, 36, 190);  
+ }
+ .title{
+    margin: 0px;
+    margin-left: 15px;
+    color: rgb(142, 142, 142);
+    font-size: 20px;
+ }
+ .imageConatiner{
+    height: 60vh;
+    width: 45vw;
+    background-image: url("https://unblast.com/wp-content/uploads/2020/05/Writing-CV-Illustration.jpg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+ }
+ @media screen and (max-width:1150px) {
+    .contain{
+        width: 45vw;
+    }
+ }
+ @media screen and (max-width:950px) {
+    .imageConatiner{
+       display: none;
+     }
+ }
+ @media screen and (max-width:700px) {
+    .contain{
+        width: 85vw;
+    }
+ }

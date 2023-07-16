@@ -4,16 +4,10 @@ import { Layout } from "./Layout";
 
 export default function App() {
   const collapseItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    "Home",
+    "Create",
+    "Favourite",
+    "About",
   ];
 
   return (
@@ -43,12 +37,10 @@ export default function App() {
           hideIn="xs"
           variant="highlight-rounded"
         >
-          <Navbar.Link href="#">Features</Navbar.Link>
-          <Navbar.Link isActive href="#">
-            Customers
-          </Navbar.Link>
-          <Navbar.Link href="#">Pricing</Navbar.Link>
-          <Navbar.Link href="#">Company</Navbar.Link>
+          <Navbar.Link href="/">Home</Navbar.Link>
+          <Navbar.Link href="/Create">Create</Navbar.Link>
+          <Navbar.Link href="#">Favourite</Navbar.Link>
+          <Navbar.Link href="#">About</Navbar.Link>
         </Navbar.Content>
         <Navbar.Content
           css={{
@@ -84,16 +76,10 @@ export default function App() {
                 </Text>
               </Dropdown.Item>
               <Dropdown.Item key="settings" withDivider>
-                My Settings
+                Settings
               </Dropdown.Item>
-              <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
-              <Dropdown.Item key="analytics" withDivider>
-                Analytics
-              </Dropdown.Item>
-              <Dropdown.Item key="system">System</Dropdown.Item>
-              <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
-              <Dropdown.Item key="help_and_feedback" withDivider>
-                Help & Feedback
+              <Dropdown.Item key="MyBlog" withDivider>
+                My Blogs
               </Dropdown.Item>
               <Dropdown.Item key="logout" withDivider color="error">
                 Log Out
@@ -116,7 +102,7 @@ export default function App() {
                 css={{
                   minWidth: "100%",
                 }}
-                href="#"
+                href={(item=='Home')?"/":`/${item}`}
               >
                 {item}
               </Link>
