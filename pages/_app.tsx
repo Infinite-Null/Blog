@@ -1,10 +1,10 @@
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import  NavBar  from '@/Components/NavBar/NavBar';
+import { Layout } from '@/Components/NavBar/Layout';
 
 export default function App({ Component, pageProps }: AppProps) {
  
-  return <>
+  return <Layout>
   <div style={{
     display:"flex",
     alignItems:"center",
@@ -14,5 +14,5 @@ export default function App({ Component, pageProps }: AppProps) {
   }}>Blog</div>
    <NavBar/>
    <Component {...pageProps} />
-  </>
+  </Layout>
 }

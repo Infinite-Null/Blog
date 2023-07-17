@@ -39,7 +39,7 @@ export default function App() {
         >
           <Navbar.Link href="/">Home</Navbar.Link>
           <Navbar.Link href="/Create">Create</Navbar.Link>
-          <Navbar.Link href="#">Favourite</Navbar.Link>
+          <Navbar.Link href="/Favourite">Favourite</Navbar.Link>
           <Navbar.Link href="#">About</Navbar.Link>
         </Navbar.Content>
         <Navbar.Content
