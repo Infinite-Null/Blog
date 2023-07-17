@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-var Connection:Promise<typeof mongoose>;
+var Connection:(Promise<typeof mongoose>|undefined)=undefined;
 export default async function connectMongo(){
     if(Connection===undefined){
         try{
