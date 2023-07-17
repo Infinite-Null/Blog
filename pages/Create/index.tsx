@@ -7,6 +7,7 @@ export default function create(){
       
       <div className={classes.contain}>
       <Input
+      id="Title"
         rounded
         bordered
         size="xl"
@@ -18,6 +19,7 @@ export default function create(){
       <p className={classes.title}>Discription</p>
       <textarea name="discription" className={classes.dis} cols={30}></textarea>
       <Input
+      id="Keyword"
         rounded
         bordered
         size="xl"

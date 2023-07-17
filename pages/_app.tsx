@@ -1,10 +1,9 @@
 import type { AppProps } from 'next/app'
 import  NavBar  from '@/Components/NavBar/NavBar';
-import { Layout } from '@/Components/NavBar/Layout';
-
+import { NextUIProvider } from '@nextui-org/react'
 export default function App({ Component, pageProps }: AppProps) {
  
-  return <Layout>
+  return <NextUIProvider>
   <div style={{
     display:"flex",
     alignItems:"center",
@@ -14,5 +13,5 @@ export default function App({ Component, pageProps }: AppProps) {
   }}>Blog</div>
    <NavBar/>
    <Component {...pageProps} />
-  </Layout>
+   </NextUIProvider>
 }
