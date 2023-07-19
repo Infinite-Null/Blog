@@ -16,7 +16,7 @@ export default async function handler(
    if(req.method=="GET"){
     await connectMongo()
     try{
-      const doc=await BlogS.find().populate("users").exec()
+      const doc=await BlogS.find().populate("users","_id name").exec()
       const response:any={
         message:"success",
         Blogs:doc

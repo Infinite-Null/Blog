@@ -13,7 +13,7 @@ export default async function handler(
         await connectMongo()
         const UserId="64b7e7a10d418980ac5d6a2f"
         try{
-            const doc=await user.findOne({_id:UserId}).populate("myBlog").exec()
+            const doc=await user.findOne({_id:UserId}).select("_id name liked myBlog").populate("myBlog").populate("liked").exec()
             const response:any={
                 message:"success",
                 Blogs:doc
