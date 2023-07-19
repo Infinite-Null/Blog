@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 const user=require('../../../Backend/Models/User')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 type Data = {
     name: string
   }
@@ -21,11 +22,30 @@ export default async function handler(
             else{
                 bcrypt.compare(password,doc.password).then((r:boolean)=>{
                     if(r){
-                        const response:any={
-                            message:"Success",
-                            details:doc
+                        const head={
+                            name:doc.name,
+                            _id:doc._id
                         }
-                        res.status(200).json(response)
+                        jwt.sign({head},process.env.KEY as string,{ expiresIn: '30d' },(err:any,token:string)=>{
+                            if(err){
+                                const response:any={
+                                    message:"Failed",
+                                    details:err
+                                }
+                                res.status(500).json(response)
+                            }else{
+                                const response:any={
+                                    message:"Success",
+                                    details:{
+                                        _id:doc._id,
+                                        Name:doc.name,
+                                        email:doc.email
+                                    },
+                                    token:token
+                                }
+                                res.status(200).json(response)
+                            }
+                        })
                     }else{
                         const response:any={
                             message:"Failed",
