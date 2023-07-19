@@ -15,13 +15,12 @@ const UserSchema=new mongoose.Schema({
         require:true,
     },
     liked:[{
-        type:mongoose.Types.ObjectId,
-        ref:'blogs'
+        type: mongoose.Types.ObjectId,
+        ref:'blogs',
     }],
     myBlog:[{
         type: mongoose.Types.ObjectId,
         ref:'blogs',
-        require:true
     }]
 })
 

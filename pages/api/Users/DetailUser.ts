@@ -13,13 +13,14 @@ export default async function handler(
         await connectMongo()
         const UserId="64b7e7a10d418980ac5d6a2f"
         try{
-            const doc=await user.findOne({_id:UserId}).populate("blogs").exec()
+            const doc=await user.findOne({_id:UserId}).populate("myBlog").exec()
             const response:any={
                 message:"success",
                 Blogs:doc
               }
               res.json(response)
         }catch(e){
+            console.log(e)
             const response:any={
                 message:"failed",
                 Blogs:e
