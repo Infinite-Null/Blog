@@ -19,8 +19,9 @@ const UserSchema=new mongoose.Schema({
         ref:'blogs'
     }],
     myBlog:[{
-        type:mongoose.Types.ObjectId,
-        ref:'blogs'
+        type: mongoose.Types.ObjectId,
+        ref:'blogs',
+        require:true
     }]
 })
 

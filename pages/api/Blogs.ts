@@ -4,6 +4,7 @@ import connectMongo from '@/Backend/Utils/connect'
 import mongoose from 'mongoose'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const BlogS=require('../../Backend/Models/Blogs')
+const user=require('../../Backend/Models/user')
 type Data = {
   name: string
 }
@@ -30,12 +31,49 @@ export default async function handler(
     }
     
    }
+   else if(req.method=="DELETE"){
+    await connectMongo()
+    const{BlogId}=req.query
+    
+    BlogS.deleteOne({_id:BlogId}).then((doc:any)=>{
+       const response:any={
+        message:"Success",
+        details:doc
+      }
+      res.status(200).json(response)
+    }).catch((e:any)=>{
+      const response:any={
+        message:"Failed",
+        details:e
+      }
+      res.status(500).json(response)
+    })
+   }
+   else if(req.method=="PATCH"){
+    await connectMongo()
+    const{BlogId}=req.query
+    
+    BlogS.updateOne({_id:BlogId},req.body).then((doc:any)=>{
+       const response:any={
+        message:"Success",
+        details:doc
+      }
+      res.status(200).json(response)
+    }).catch((e:any)=>{
+      const response:any={
+        message:"Failed",
+        details:e
+      }
+      res.status(500).json(response)
+    })
+   }
    else if(req.method=="POST"){
    const {Title,Date,Discription,UserId}=req.body
    await connectMongo()
    console.log("Connected")
+   const blogId=new mongoose.Types.ObjectId()
    const Blog=new BlogS({
-    _id:new mongoose.Types.ObjectId(),
+    _id:blogId,
     title:Title,
     discription:Discription,
     Date:Date,
@@ -44,11 +82,13 @@ export default async function handler(
     users:UserId
    })
    Blog.save().then((doc:any)=>{
-    const response:any={
-      message:"Success",
-      detail:doc,
-    }
-    res.status(200).json(response)
+    user.updateOne({_id:UserId},{$push:{myBlog:blogId}}).then((doc:any)=>{
+      const response:any={
+        message:"Success",
+        detail:doc,
+      }
+      res.status(200).json(response)
+    })
    }).catch((e:any)=> {
     const response:any={
       message:"Error",
