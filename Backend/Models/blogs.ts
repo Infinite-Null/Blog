@@ -22,9 +22,6 @@ const BlogSchema=new mongoose.Schema({
     Comments:{
         type:Array
     },
-    Likes:{
-        type:Number
-    },
 })
 
 module.exports=mongoose.models.blogs||mongoose.model('blogs',BlogSchema)

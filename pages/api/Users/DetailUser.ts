@@ -1,14 +1,34 @@
 import connectMongo from '@/Backend/Utils/connect'
+import VerifyToken from '@/Backend/Utils/middleWare'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const user=require('../../../Backend/Models/user')
 const blog=require('../../../Backend/Models/blogs')
 type Data = {
   name: string
 }
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
   ) {
+    const header = req.headers['authorization'];
+    if(typeof header !== 'undefined') {
+        const bearer = header.split(' ');
+        const token = bearer[1];
+        if(VerifyToken(token)===false){
+            const response:any={
+                message:"failed",
+                details:"token invaild"
+            }
+            return  res.status(403).json(response)
+        }
+    } else {
+        const response:any={
+            message:"failed",
+            details:"token invaild"
+        }
+        return  res.status(403).json(response)
+    }
     if(req.method=="GET"){
         await connectMongo()
         const UserId="64b7e7a10d418980ac5d6a2f"
