@@ -14,8 +14,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  await connectMongo()
    if(req.method=="GET"){
-    await connectMongo()
     try{
       const doc=await BlogS.find().select("_id users title discription Date").populate("users","name").exec()
       const response:any={
@@ -68,7 +68,6 @@ export default async function handler(
     })
    }
    if(req.method=="PATCH"){
-    await connectMongo()
     const{BlogId}=req.query
     
     BlogS.updateOne({_id:BlogId},req.body).then((doc:any)=>{

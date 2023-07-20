@@ -1,3 +1,4 @@
+import connectMongo from '@/Backend/Utils/connect';
 import type { NextApiRequest, NextApiResponse } from 'next'
 const user=require('../../../Backend/Models/User')
 const bcrypt = require('bcrypt');
@@ -9,6 +10,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
   ) {
+    await connectMongo()
     if(req.method=='POST'){
         const{email,password}=req.body
         user.findOne({email:email}).then((doc:any)=>{

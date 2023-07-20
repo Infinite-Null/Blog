@@ -26,8 +26,8 @@ export default async function handler(
         }
         return  res.status(403).json(response)
     }
-    if(req.method=="POST"){
     await connectMongo()
+    if(req.method=="POST"){
     const{blogId,userId}=req.body
     const user=require('../../../Backend/Models/user')
     user.updateOne({_id:userId},{$push:{

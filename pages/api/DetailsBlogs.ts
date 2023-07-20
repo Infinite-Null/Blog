@@ -10,8 +10,8 @@ export default async function handler(
 ){
   if(req.method=="GET"){
     await connectMongo()
-    const {BlogId}=req.body
-    BlogS.findOne({_id:BlogId}).then((doc:any)=>{
+    const {BlogId}=req.query
+    BlogS.findOne({_id:BlogId}).populate("users","_id name").then((doc:any)=>{
         const response:any={
             message:"Success",
             details:doc

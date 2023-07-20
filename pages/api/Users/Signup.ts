@@ -11,10 +11,11 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
   ) {
+    await connectMongo()
     if(req.method=="GET"){
 
     }else if(req.method=="POST"){
-        await connectMongo()
+       
         const{Name,Email,Password}=req.body
        user.find({email:Email}).then((doc:any)=>{
         if(doc.length>0){

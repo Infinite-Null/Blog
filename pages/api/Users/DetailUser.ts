@@ -29,9 +29,9 @@ export default async function handler(
         }
         return  res.status(403).json(response)
     }
+    await connectMongo()
     if(req.method=="GET"){
-        await connectMongo()
-        const UserId="64b7e7a10d418980ac5d6a2f"
+        const {UserId}=req.query
         try{
             const doc=await user.findOne({_id:UserId}).select("_id name liked myBlog").populate("myBlog").populate("liked").exec()
             const response:any={
