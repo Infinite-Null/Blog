@@ -1,8 +1,16 @@
 import { Card, Grid, Row, Text } from "@nextui-org/react";
 import classes from "./Card.module.css"
+import { motion } from 'framer-motion';
 export default function CardB(){
   const text="The fields of mathematics, probability, and statistics use formal definitions of randomness. In statistics, a random variable is an assignment of a numerical value to each possible outcome of an event space. This association facilitates the identification and the calculation of probabilities of the events. Random variables can appear in random sequences. A random process is a sequence of random variables whose The fields of mathematics, probability, and statistics use formal definitions of randomness. In statistics, a random variable is an assignment of a numerical value to each possible outcome of an event space. This association facilitates the identification and the calculation of probabilities of the events. Random variables can appear in random sequences. A random process is a sequence of random variables whose ."
-    return <div  className={classes.card}>
+    return <motion.div  
+    initial={{
+      y:100,
+    }}
+    animate={{
+      y:0
+    }}
+    className={classes.card}>
       <Card
       isPressable
       isHoverable
@@ -33,5 +41,5 @@ export default function CardB(){
         }}>- Ankit Kumar Shah</Text>
       </Card.Footer>
     </Card>
-    </div>
+    </motion.div>
 }

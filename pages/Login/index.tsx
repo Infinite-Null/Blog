@@ -1,4 +1,5 @@
 import { Card,  Input, Text, Button, Row , Spacer} from "@nextui-org/react";
+import { motion } from "framer-motion"
 import { useState } from 'react';
 export default function App(){
     const [login,setlogin]=useState(true)
@@ -12,7 +13,15 @@ export default function App(){
 }
 
 function Login({change}:{change:(a:boolean)=>void}){
-    return <Card css={{ mw: "330px", border:"2px solid black"}} isHoverable>
+    return <motion.div
+    initial={{
+        y:100
+    }}
+    animate={{
+        y:0
+    }}
+    >
+        <Card css={{ mw: "330px", border:"2px solid black"}} isHoverable>
     <Card.Header>
       <Text b>Login</Text>
     </Card.Header>
@@ -41,10 +50,19 @@ function Login({change}:{change:(a:boolean)=>void}){
       </Row>
     </Card.Footer>
   </Card>
+    </motion.div>
 }
 
 function Signup({change}:{change:(a:boolean)=>void}){
-    return <Card css={{ mw: "330px", border:"2px solid black"}} isHoverable>
+    return <motion.div
+    initial={{
+        y:100
+    }}
+    animate={{
+        y:0
+    }}
+    >
+        <Card css={{ mw: "330px", border:"2px solid black"}} isHoverable>
     <Card.Header>
       <Text b>Signup</Text>
     </Card.Header>
@@ -79,4 +97,5 @@ function Signup({change}:{change:(a:boolean)=>void}){
       </Row>
     </Card.Footer>
   </Card>
+    </motion.div>
 }

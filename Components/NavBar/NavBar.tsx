@@ -60,7 +60,7 @@ export default function App() {
                 </Text>
               </Dropdown.Item>
               <Dropdown.Item key="settings" withDivider>
-                <Link href="/Account">Settings</Link>
+                <Link href="/Account">Account</Link>
               </Dropdown.Item>
               <Dropdown.Item key="logout" withDivider color="error">
                 Log Out
