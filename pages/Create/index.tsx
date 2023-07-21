@@ -18,16 +18,6 @@ export default function create(){
       />
       <p className={classes.title}>Discription</p>
       <textarea name="discription" className={classes.dis} cols={30}></textarea>
-      <Input
-      id="Keyword"
-        rounded
-        bordered
-        size="xl"
-        labelLeft="Keyword"
-        placeholder="Tech Web"
-        clearable
-        color="secondary"
-      />
       <Button shadow color="secondary" auto>
         Create
       </Button>

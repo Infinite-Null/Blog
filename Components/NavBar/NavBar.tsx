@@ -14,23 +14,7 @@ export default function App() {
     <Layout>
       <Navbar isBordered variant="sticky">
         <Navbar.Toggle showIn="xs" />
-        <Input
-              clearable
-              contentLeftStyling={false}
-              bordered 
-              css={{
-               
-                mw: "200px",
-                "@xsMax": {
-                  mw: "200px",
-                },
-                "& .nextui-input-content--left": {
-                  h: "100%",
-                  ml: "$4",
-                },
-              }}
-              placeholder="Search..."
-            />
+        <Text b>Bloging Made Easy</Text>
         <Navbar.Content
           enableCursorHighlight
           activeColor="secondary"
@@ -58,7 +42,7 @@ export default function App() {
                   as="button"
                   color="secondary"
                   size="md"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src="https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc="
                 />
               </Dropdown.Trigger>
             </Navbar.Item>
@@ -76,10 +60,7 @@ export default function App() {
                 </Text>
               </Dropdown.Item>
               <Dropdown.Item key="settings" withDivider>
-                Settings
-              </Dropdown.Item>
-              <Dropdown.Item key="MyBlog" withDivider>
-                My Blogs
+                <Link href="/Account">Settings</Link>
               </Dropdown.Item>
               <Dropdown.Item key="logout" withDivider color="error">
                 Log Out

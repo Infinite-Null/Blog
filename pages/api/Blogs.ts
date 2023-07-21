@@ -95,13 +95,13 @@ export default async function handler(
     discription:Discription,
     Date:Date,
     Comments:[],
-    users:UserId
+    users:UserId,
    })
-   Blog.save().then((doc:any)=>{
+   Blog.save().then((doc1:any)=>{
     user.updateOne({_id:UserId},{$push:{myBlog:blogId}}).then((doc:any)=>{
       const response:any={
         message:"Success",
-        detail:doc,
+        detail:doc1,
       }
       res.status(200).json(response)
     })

@@ -33,7 +33,7 @@ export default async function handler(
     if(req.method=="GET"){
         const {UserId}=req.query
         try{
-            const doc=await user.findOne({_id:UserId}).select("_id name liked myBlog").populate("myBlog").populate("liked").exec()
+            const doc=await user.findOne({_id:UserId}).select("_id name liked myBlog email").populate("myBlog","_id users title discription date").populate("liked").exec()
             const response:any={
                 message:"success",
                 Blogs:doc

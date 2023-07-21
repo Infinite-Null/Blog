@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
     <Quote title1='Conversation is king.' title2='Content is just something to talk about.'/>
-    <div className={classes.blogs}>
+   <div className={classes.blogs}>
       <CardB/>
     <CardB/>
     <CardB/>
