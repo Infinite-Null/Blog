@@ -32,7 +32,7 @@ function Login({change}:{change:(a:boolean)=>void}){
     placeholder="@gmail.com" 
   />
   <Spacer/>
-  <Input 
+  <Input.Password
     underlined 
     labelLeft="Password" 
     placeholder="****" 
@@ -79,7 +79,7 @@ function Signup({change}:{change:(a:boolean)=>void}){
     placeholder="@gmail.com" 
   />
   <Spacer/>
-  <Input 
+  <Input.Password
     underlined 
     labelLeft="Password" 
     placeholder="****" 
