@@ -1,7 +1,5 @@
 import { Navbar, Link, Text, Avatar, Dropdown, Input } from "@nextui-org/react";
 import { Layout } from "./Layout";
-
-
 export default function App() {
   const collapseItems = [
     "Home",

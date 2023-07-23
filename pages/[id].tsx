@@ -1,9 +1,10 @@
 import { Button, Card, Input, Text } from "@nextui-org/react";
-
+import classes from '../styles/Create/Create.module.css'
 export default function App(){
+  console.log(classes)
    return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
-        <div style={{paddingLeft:"150px",paddingRight:"150px",paddingTop:"60px"}}>
+        <div className={classes.bLogContainer}>
         <Card>
         <Card.Header css={{display:"flex",flexDirection:"column",alignItems:"start",justifyContent:"start"}}>
         <Text  b css={{
@@ -29,7 +30,7 @@ export default function App(){
    )
 }
 function Comments(){
-    return  <div style={{width:"100%",height:"350px",paddingLeft:"150px",paddingRight:"150px",marginTop:"30px",marginBottom:"10px"}}>
+    return  <div className={classes.comment}>
         <div style={{width:"100%",height:"300px",overflow:"scroll"}}>
          <EachComment comment="This is a good blog" name="Ankit Kumar Shah"/>
          <EachComment comment="This is a good blog with cool words" name="Abhijeet"/>
