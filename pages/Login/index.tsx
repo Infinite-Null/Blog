@@ -1,13 +1,11 @@
-"use client"
+import {signIn} from 'next-auth/react'
 import { Card,  Input, Text, Button, Row , Spacer, Loading} from "@nextui-org/react";
 import { motion } from "framer-motion"
-import { useContext, useState } from 'react';
+import {useState } from 'react';
 import axios  from 'axios';
 import ModalComp from "@/Components/Modal/ModalComp";
 export default function App(){
-  var LoginState
-  if(typeof window !== "undefined")
-     LoginState=localStorage.getItem("Login")??"false"
+  var LoginState='false'
     const [login,setlogin]=useState(true)
     function change(a:boolean){
         setlogin(()=>a)
@@ -31,48 +29,19 @@ function Login({change}:{change:(a:boolean)=>void}){
   const[loading,setLoding]=useState(false)
   const[email,setEmail]=useState("")
   const[password,setPassword]=useState("")
-  function LoginUser(){
+  async function LoginUser(){
     if(email==""||email==undefined||password==""||password==undefined){
       setMessage(()=>"Please fill all feilds")
       setVisible(()=>true)
       return;
     }
     setLoding(()=>true)
-    axios.post("/api/Users/Login",
-      {
-        email:email,
-        password:password
-      }
-    ).then((res:{
-      data:{
-        message:string,
-        details:{
-          _id: string
-        Name: string,
-        email: string
-        }&string,
-        token:string
-      }
-    })=>{
-      if(res.data.details=="No User Found"){
-        setMessage(()=>"Email is not connected with any account")
-        setVisible(()=>true)
-        setLoding(()=>false)
-         return;
-      }
-      if(res.data.details=="Password Incorrect"){
-        setMessage(()=>"Email or password incorrect")
-        setVisible(()=>true)
-        setLoding(()=>false)
-         return;
-      }
-      setLoding(()=>false)
-      localStorage.setItem("Login","true")
-      localStorage.setItem("token",res.data.token)
-      localStorage.setItem("Name",res.data.details.Name)
-      localStorage.setItem("Email",res.data.details.email)
-      localStorage.setItem("id",res.data.details._id)
-    }).catch(e=>console.log(e))
+    const result=await signIn("credentials",{
+      redirect:false,
+      email:email,
+      password:password
+    })
+    setLoding(()=>false)
   }
 
     return <div>

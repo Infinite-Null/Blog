@@ -1,5 +1,7 @@
-import { Navbar, Link, Text, Avatar, Dropdown, Input } from "@nextui-org/react";
+import { Navbar, Text, Avatar, Dropdown} from "@nextui-org/react";
+import Link from "next/link";
 import { Layout } from "./Layout";
+import { useSession } from "next-auth/react";
 export default function App() {
   const collapseItems = [
     "Home",
@@ -7,7 +9,42 @@ export default function App() {
     "Favourite",
     "About",
   ];
-
+  const Data=useSession()
+  function userProfile(){
+    return <Dropdown placement="bottom-right">
+    <Navbar.Item>
+      <Dropdown.Trigger>
+        <Avatar
+          bordered
+          as="button"
+          color="secondary"
+          size="md"
+          src="https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc="
+        />
+      </Dropdown.Trigger>
+    </Navbar.Item>
+    <Dropdown.Menu
+      aria-label="User menu actions"
+      color="secondary"
+      onAction={(actionKey) => console.log({ actionKey })}
+    >
+      <Dropdown.Item key="profile" css={{ height: "$18" }}>
+        <Text b color="inherit" css={{ d: "flex" }}>
+          Signed in as
+        </Text>
+        <Text b color="inherit" css={{ d: "flex" }}>
+          zoey@example.com
+        </Text>
+      </Dropdown.Item>
+      <Dropdown.Item key="settings" withDivider>
+        <Link href="/Account">Account</Link>
+      </Dropdown.Item>
+      <Dropdown.Item key="logout" withDivider color="error">
+        Log Out
+      </Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  }
   return (
     <Layout>
       <Navbar isBordered variant="sticky">
@@ -19,10 +56,30 @@ export default function App() {
           hideIn="xs"
           variant="highlight-rounded"
         >
-          <Navbar.Link href="/">Home</Navbar.Link>
-          <Navbar.Link href="/Create">Create</Navbar.Link>
-          <Navbar.Link href="/Favourite">Favourite</Navbar.Link>
-          <Navbar.Link href="#">About</Navbar.Link>
+          <Link style={{
+            padding:"2px",
+            fontSize:"20px",
+            paddingLeft:"20px",
+            color:"black"
+          }} href="/">Home</Link>
+          <Link style={{
+            padding:"2px",
+            fontSize:"20px",
+            paddingLeft:"20px",
+            color:"black"
+          }} href="/Create">Create</Link>
+          <Link style={{
+            padding:"2px",
+            fontSize:"20px",
+            paddingLeft:"20px",
+            color:"black"
+          }} href="/Favourite">Favourite</Link>
+          <Link style={{
+            padding:"2px",
+            fontSize:"20px",
+            paddingLeft:"20px",
+            color:"black"
+          }} href="#">About</Link>
         </Navbar.Content>
         <Navbar.Content
           css={{
@@ -32,39 +89,7 @@ export default function App() {
             },
           }}
         >
-          <Dropdown placement="bottom-right">
-            <Navbar.Item>
-              <Dropdown.Trigger>
-                <Avatar
-                  bordered
-                  as="button"
-                  color="secondary"
-                  size="md"
-                  src="https://media.istockphoto.com/id/1208175274/vector/avatar-vector-icon-simple-element-illustrationavatar-vector-icon-material-concept-vector.jpg?s=612x612&w=0&k=20&c=t4aK_TKnYaGQcPAC5Zyh46qqAtuoPcb-mjtQax3_9Xc="
-                />
-              </Dropdown.Trigger>
-            </Navbar.Item>
-            <Dropdown.Menu
-              aria-label="User menu actions"
-              color="secondary"
-              onAction={(actionKey) => console.log({ actionKey })}
-            >
-              <Dropdown.Item key="profile" css={{ height: "$18" }}>
-                <Text b color="inherit" css={{ d: "flex" }}>
-                  Signed in as
-                </Text>
-                <Text b color="inherit" css={{ d: "flex" }}>
-                  zoey@example.com
-                </Text>
-              </Dropdown.Item>
-              <Dropdown.Item key="settings" withDivider>
-                <Link href="/Account">Account</Link>
-              </Dropdown.Item>
-              <Dropdown.Item key="logout" withDivider color="error">
-                Log Out
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          {(Data.status!=='loading')&&(Data.status==='authenticated')?userProfile():<Link href={'/Login'}>Login</Link>}
         </Navbar.Content>
         <Navbar.Collapse>
           {collapseItems.map((item, index) => (
@@ -78,9 +103,6 @@ export default function App() {
             >
               <Link
                 color="inherit"
-                css={{
-                  minWidth: "100%",
-                }}
                 href={(item=='Home')?"/":`/${item}`}
               >
                 {item}
