@@ -1,17 +1,25 @@
-import axios from "axios";
+'use client';
 import BlogContext from "./blogContext";
-import { useState } from 'react';
-import { NextPageContext } from "next";
+import { useState, useEffect } from 'react';
 
 const BlogState:any=(props:any)=>{
+  
     
     const [Login,SetLogin]=useState(false)
     const [userDetail,setUserDetail]=useState({})
 
-
+    function setLogin(val:boolean){
+        SetLogin(()=>val)
+    }
+    function setUserDetails(val:any){
+        setUserDetail((prev)=>prev=val)
+    }
+    useEffect(()=>{
+        console.log(Login)
+    },[Login,userDetail])
 
     return (
-        <BlogContext.Provider value={{setUserDetail,SetLogin,Login,userDetail}}>
+        <BlogContext.Provider value={{setUserDetails,setLogin,Login,userDetail}}>
             {props.children}
         </BlogContext.Provider>
     )

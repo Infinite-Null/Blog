@@ -1,10 +1,8 @@
 import React from "react";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
-import { color } from "framer-motion";
 
-export default function ModalComp({visible, setVisible, message}:any) {
+export default function ModalComp({visible, setVisible, message , Good=false}:any) {
 
-  const handler = () => setVisible(true);
 
   const closeHandler = () => {
     setVisible(false);
@@ -24,12 +22,12 @@ export default function ModalComp({visible, setVisible, message}:any) {
         <Modal.Header>
        <Text css={{
         fontSize:"$5xl",
-        color:"red",
-       }}>!</Text>
+        color:(Good==false)?"red":"green",
+       }}>{(Good==false)?"!":"^_^"}</Text>
         </Modal.Header>
        <Text b>{message}</Text>
         <Modal.Footer>
-          <Button auto flat color="error" onPress={closeHandler}>
+          <Button auto flat color={(Good==false)?"error":"success"} onPress={closeHandler}>
             Close
           </Button>
         </Modal.Footer>
