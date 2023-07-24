@@ -23,8 +23,15 @@ export default NextAuth({
         if (!authResponse.ok) {
           return null
         }
-
         const res = await authResponse.json()
+        if(res.details=="No User Found"){
+          throw new Error("User Not Found")
+          return null
+        }
+        if(res.details=="Password Incorrect"){
+          throw new Error("Incorrect Password")
+          return null
+        }
         const user={
           _id:res.details._id,
           Name:res.details.Name,

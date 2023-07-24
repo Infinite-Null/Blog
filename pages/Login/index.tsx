@@ -1,22 +1,27 @@
-import {signIn} from 'next-auth/react'
+import {signIn, useSession} from 'next-auth/react'
 import { Card,  Input, Text, Button, Row , Spacer, Loading} from "@nextui-org/react";
 import { motion } from "framer-motion"
 import {useState } from 'react';
 import axios  from 'axios';
+import { useRouter } from 'next/navigation'
 import ModalComp from "@/Components/Modal/ModalComp";
 export default function App(){
-  var LoginState='false'
+  const Data=useSession()
+  if(Data.status==='authenticated'){
+    const router = useRouter()
+    router.back()
+  }
     const [login,setlogin]=useState(true)
     function change(a:boolean){
         setlogin(()=>a)
     }
-    console.log(LoginState)
     return <div>
-      {(LoginState==="false")?<div style={{display:"flex",height:"80vh",alignItems:"center",justifyContent:"center"}}>
+      {(Data.status!=='loading'||!Data)&&<div style={{display:"flex",height:"80vh",alignItems:"center",justifyContent:"center"}}>
         {(login==true)?<Login change={change}/>:
         <Signup change={change}/>}
-    </div>:"Already Logged in"}
+    </div>}
     </div>
+   
 }
 
 
@@ -41,6 +46,15 @@ function Login({change}:{change:(a:boolean)=>void}){
       email:email,
       password:password
     })
+    if(result?.error==="User Not Found"){
+      setMessage(()=>"User Not Found")
+      setVisible(()=>true)
+    }
+    if(result?.error==="Incorrect Password"){
+      setMessage(()=>"Incorrect Password")
+      setVisible(()=>true)
+    }
+    console.log(result)
     setLoding(()=>false)
   }
 

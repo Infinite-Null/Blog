@@ -1,7 +1,7 @@
 import { Navbar, Text, Avatar, Dropdown} from "@nextui-org/react";
 import Link from "next/link";
 import { Layout } from "./Layout";
-import { useSession } from "next-auth/react";
+import { useSession,signOut } from "next-auth/react";
 export default function App() {
   const collapseItems = [
     "Home",
@@ -9,8 +9,9 @@ export default function App() {
     "Favourite",
     "About",
   ];
-  const Data=useSession()
-  function userProfile(){
+  const Data:any=useSession()
+  function userProfile(email:string){
+
     return <Dropdown placement="bottom-right">
     <Navbar.Item>
       <Dropdown.Trigger>
@@ -26,14 +27,18 @@ export default function App() {
     <Dropdown.Menu
       aria-label="User menu actions"
       color="secondary"
-      onAction={(actionKey) => console.log({ actionKey })}
+      onAction={(actionKey) => {
+        if(actionKey==="logout"){
+          signOut()
+        }
+      }}
     >
       <Dropdown.Item key="profile" css={{ height: "$18" }}>
         <Text b color="inherit" css={{ d: "flex" }}>
           Signed in as
         </Text>
         <Text b color="inherit" css={{ d: "flex" }}>
-          zoey@example.com
+          {email}
         </Text>
       </Dropdown.Item>
       <Dropdown.Item key="settings" withDivider>
@@ -89,7 +94,7 @@ export default function App() {
             },
           }}
         >
-          {(Data.status!=='loading')&&(Data.status==='authenticated')?userProfile():<Link href={'/Login'}>Login</Link>}
+          {(Data.status!=='loading')&&(Data.status==='authenticated')?userProfile(Data?.data?.user?.email??""):<Link href={'/Login'}>Login</Link>}
         </Navbar.Content>
         <Navbar.Collapse>
           {collapseItems.map((item, index) => (
