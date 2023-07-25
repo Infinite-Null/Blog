@@ -48,16 +48,16 @@ export default function App() {
     </Button.Group>
     </div>
     {(type==="Blogs")?<div className={classes.blogs}>
+        {/* <CardB/>
         <CardB/>
         <CardB/>
         <CardB/>
         <CardB/>
         <CardB/>
-        <CardB/>
-        <CardB/>
+        <CardB/> */}
     </div>:<div className={classes.blogs}>
-        <CardB/>
-        <CardB/>
+        {/* <CardB/>
+        <CardB/> */}
     </div>}
   </div>
   );

@@ -1,3 +1,4 @@
+
 import CardB from '@/Components/Card/Card'
 import Quote from '@/Components/Quote/Quote'
 import classes from '../../styles/Home.module.css'
@@ -19,11 +20,11 @@ export default function Favourite(){
       router.push('/Login')
     }}
     >Login</Button>:<div className={classes.blogs}>
-      <CardB/>
+      {/* <CardB/>
     <CardB/>
     <CardB/>
     <CardB/>
-    <CardB/>
+    <CardB/> */}
     </div>
     }
   </div>

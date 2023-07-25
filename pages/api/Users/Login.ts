@@ -1,6 +1,6 @@
 import connectMongo from '@/Backend/Utils/connect';
 import type { NextApiRequest, NextApiResponse } from 'next'
-const user=require('../../../Backend/Models/User')
+const user=require('../../../Backend/Models/userSchema')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 type Data = {

@@ -5,7 +5,7 @@ import VerifyToken from '@/Backend/Utils/middleWare'
 import mongoose from 'mongoose'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const BlogS=require('../../Backend/Models/Blogs')
-const user=require('../../Backend/Models/user')
+const user=require('../../Backend/Models/userSchema')
 type Data = {
   name: string
 }
@@ -22,13 +22,15 @@ export default async function handler(
   //       message:"success",
   //       Blogs:doc
   //     }
-  //     res.json(response)
+  //     res.status(200).json(response)
+  //     return;
   //   }catch(e){
   //     const response:any={
   //       message:"failed",
   //       Blogs:e
   //     }
-  //     res.json(response)
+  //     res.status(200).json(response)
+  //     return;
   //   }
   //  }
 
@@ -40,8 +42,7 @@ export default async function handler(
         const skip=page_no*6
         console.log(page_no)
         const doc=await BlogS.find().exec()
-
-        const Blogs=await BlogS.find().skip(skip).limit(6).select("_id users title discription Date").populate("users","name").exec()
+        const Blogs=await BlogS.find().sort({ createdAt: -1 }).select("_id users title discription Date createdAt").populate("users","name").skip(skip).limit(6).exec()
         const response:any={
                 message:"success",
                 EachPage:6,
@@ -51,6 +52,7 @@ export default async function handler(
         res.status(200).json(response)
         return;
       }catch (e) {console.log(e)}
+      return;
     }
 
 
@@ -109,7 +111,7 @@ export default async function handler(
     })
    }
    if(req.method=="POST"){
-   const {Title,Date,Discription,UserId}=req.body
+   const {Title,Discription,UserId}=req.body
    await connectMongo()
    console.log("Connected")
    const blogId=new mongoose.Types.ObjectId()
@@ -117,7 +119,6 @@ export default async function handler(
     _id:blogId,
     title:Title,
     discription:Discription,
-    Date:Date,
     Comments:[],
     users:UserId,
    })

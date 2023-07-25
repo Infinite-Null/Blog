@@ -128,7 +128,7 @@ function Signup({change}:{change:(a:boolean)=>void}){
         return;
       }
       setLoding(()=>true)
-      axios.post("/api/Users/Signup",
+      axios.post("/api/Users/SignupUser",
       {
         Name:name,
         Email:email,

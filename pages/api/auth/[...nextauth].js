@@ -1,11 +1,11 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import async from './../Users/Signup';
 
 export default NextAuth({
   session:{
     jwt:false
   },
+  secret:"sece",
   providers: [
     CredentialsProvider({
       async authorize(credentials) {

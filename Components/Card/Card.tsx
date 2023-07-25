@@ -1,8 +1,14 @@
 import { Card, Text } from "@nextui-org/react";
 import classes from "./Card.module.css"
 import { motion } from 'framer-motion';
-export default function CardB(){
-  const text="The fields of mathematics, probability, and statistics use formal definitions of randomness. In statistics, a random variable is an assignment of a numerical value to each possible outcome of an event space. This association facilitates the identification and the calculation of probabilities of the events. Random variables can appear in random sequences. A random process is a sequence of random variables whose The fields of mathematics, probability, and statistics use formal definitions of randomness. In statistics, a random variable is an assignment of a numerical value to each possible outcome of an event space. This association facilitates the identification and the calculation of probabilities of the events. Random variables can appear in random sequences. A random process is a sequence of random variables whose ."
+export default function CardB({title,date,discription,name,id}:{
+  title:string,
+  date:string,
+  discription:string,
+  name:string,
+  id:string
+}&any){
+  const text=discription
     return <motion.div  
     initial={{
       y:100,
@@ -20,14 +26,14 @@ export default function CardB(){
       <Card.Header>
             <Text b css={{
           fontSize:"1.8rem"
-        }}>Rain Or Pain</Text>
+        }}>{title.toUpperCase()}</Text>
           
       </Card.Header>
       <Card.Header>
             <Text b css={{
           fontSize:"1rem",
           fontWeight:"100"
-        }}>23 feb 2023</Text>
+        }}>{date}</Text>
       </Card.Header>
       
       <Card.Body>
@@ -38,7 +44,7 @@ export default function CardB(){
       <Card.Footer>
         <Text css={{
           fontSize:"1.2rem"
-        }}>- Ankit Kumar Shah</Text>
+        }}>{`- ${name}`}</Text>
       </Card.Footer>
     </Card>
     </motion.div>
