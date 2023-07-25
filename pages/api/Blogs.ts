@@ -15,22 +15,46 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   await connectMongo()
-   if(req.method=="GET"){
-    try{
-      const doc=await BlogS.find().select("_id users title discription Date").populate("users","name").exec()
-      const response:any={
-        message:"success",
-        Blogs:doc
-      }
-      res.json(response)
-    }catch(e){
-      const response:any={
-        message:"failed",
-        Blogs:e
-      }
-      res.json(response)
+  //  if(req.method=="GET"){
+  //   try{
+  //     const doc=await BlogS.find().select("_id users title discription Date").populate("users","name").exec()
+  //     const response:any={
+  //       message:"success",
+  //       Blogs:doc
+  //     }
+  //     res.json(response)
+  //   }catch(e){
+  //     const response:any={
+  //       message:"failed",
+  //       Blogs:e
+  //     }
+  //     res.json(response)
+  //   }
+  //  }
+
+    if(req.method=="GET"){
+      try{
+        const {page}=req.query
+        const page_no=parseInt(page as string)-1
+
+        const skip=page_no*6
+        console.log(page_no)
+        const doc=await BlogS.find().exec()
+
+        const Blogs=await BlogS.find().skip(skip).limit(6).select("_id users title discription Date").populate("users","name").exec()
+        const response:any={
+                message:"success",
+                EachPage:6,
+                Total:doc.length,
+                Blogs:Blogs
+          }
+        res.status(200).json(response)
+        return;
+      }catch (e) {console.log(e)}
     }
-   }
+
+
+
    const header = req.headers['authorization'];
    if(typeof header !== 'undefined') {
        const bearer = header.split(' ');

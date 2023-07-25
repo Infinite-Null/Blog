@@ -1,4 +1,4 @@
-import { Card, Grid, Row, Text } from "@nextui-org/react";
+import { Card, Text } from "@nextui-org/react";
 import classes from "./Card.module.css"
 import { motion } from 'framer-motion';
 export default function CardB(){
