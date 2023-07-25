@@ -1,7 +1,7 @@
 import Quote from '@/Components/Quote/Quote'
 import { Inter } from 'next/font/google'
 import classes from '../styles/Home.module.css'
-import { Pagination } from '@nextui-org/react'
+import { Loading, Pagination } from '@nextui-org/react'
 import axios from 'axios'
 import { useState,useEffect, Dispatch, SetStateAction } from 'react';
 import CardB from '@/Components/Card/Card'
@@ -37,9 +37,10 @@ useEffect(()=>{
   return <div>
    <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
    <Quote title1='Conversation is king.' title2='Content is just something to talk about.'/>
+   {(loding)&&<div style={{height:"80vh",display:"flex",alignItems:"center",justifyContent:"center"}}><Loading size="xl" color='secondary'/></div>}
    {(!loding)&&<>
    <div className={classes.blogs}>
-    {blogs?.Blogs?.map((e:{
+    {(blogs?.Blogs?.length===0)?<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"60vh",width:"100vw",fontSize:"30px"}}>---No Blog---</div>:blogs?.Blogs?.map((e:{
             _id: string,
             users: {
                 _id: string,
@@ -50,10 +51,17 @@ useEffect(()=>{
             createdAt:string
         },i:any)=><CardB title={e.title} date={(dayjs(Date.parse(e.createdAt)).format("MM/DD/YYYY")).toString()} discription={e.discription} name={e.users.name} id={e._id} key={i}/>)}
     </div>
-    <Pagination shadow total={totalPage} initialPage={1} css={{
+    {(blogs?.Blogs?.length!==0)&&<Pagination color="secondary" shadow total={totalPage} initialPage={page} 
+    onChange={(Selectedpage)=>{
+      if(page!=Selectedpage){
+      setPage(Selectedpage)
+      getData()
+      }
+    }}
+    css={{
       marginTop:"20px",
       marginBottom:"20px"
-    }}/>
+    }}/>}
    </>}
   </div>
   </div>
