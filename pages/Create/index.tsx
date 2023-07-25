@@ -11,7 +11,9 @@ export default function create(){
     
     <div className={classes.main}>
       
-      {Data.status!=='loading'&&(Data.status==='unauthenticated')?<Button onPress={()=>{
+      {Data.status!=='loading'&&(Data.status==='unauthenticated')?<Button
+      auto ghost
+      onPress={()=>{
         router.push("/Login")
       }}>Login</Button>:
      <>

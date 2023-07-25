@@ -28,6 +28,7 @@ export default function App(){
          <hr/>
         </Card>
         {Data.status!=='loading'&& (Data.status==="unauthenticated")?<Button 
+        auto ghost
         onPress={()=>{
           router.push('/Login')
         }}
@@ -44,6 +45,8 @@ export default function App(){
    )
 }
 function Comments(){
+  const Data=useSession()
+  const router=useRouter()
     return  <div className={classes.comment}>
         <div style={{width:"100%",height:"300px",overflow:"scroll"}}>
          <EachComment comment="This is a good blog" name="Ankit Kumar Shah"/>
@@ -61,9 +64,17 @@ function Comments(){
         placeholder="Write a comment.." 
         clearable
         underlined
-      /> <Button color="secondary" auto ghost css={{marginTop:"10px",marginLeft:"10px"}}>
+      /> {Data.status!=='loading'&& (Data.status==="unauthenticated")?<Button 
+      auto ghost
+      onPress={()=>{
+        router.push('/Login')
+      }}
+      css={{
+        width:"fit-content",
+        marginTop:"10px"
+       }}>Login</Button>:<Button color="secondary" auto ghost css={{marginTop:"10px",marginLeft:"10px"}}>
       {">"}
-    </Button>
+    </Button>}
          </div>
     </div>
 }
