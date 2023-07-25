@@ -1,7 +1,10 @@
 import { Button, Card, Input, Text } from "@nextui-org/react";
 import classes from '../styles/Create/Create.module.css'
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 export default function App(){
-  console.log(classes)
+  const Data=useSession()
+  const router=useRouter()
    return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
         <div className={classes.bLogContainer}>
@@ -24,6 +27,17 @@ export default function App(){
          }}>The fields of mathematics, probability, and statistics use formal definitions of randomness. In statistics, a random variable is an assignment of a numerical value to each possible outcome of an event space. This association facilitates the identification and the calculation of probabilities of the events. Random variables can appear in random sequences. A random process is a sequence of random variables whose The fields of mathematics, probability, and statistics use formal definitions of randomness. In statistics, a random variable is an assignment of a numerical value to each possible outcome of an event space. This association facilitates the identification and the calculation of probabilities of the events. Random variables can appear in random sequences. A random process is a sequence of random variables whose .</Text>
          <hr/>
         </Card>
+        {Data.status!=='loading'&& (Data.status==="unauthenticated")?<Button 
+        onPress={()=>{
+          router.push('/Login')
+        }}
+        css={{
+          width:"fit-content",
+          marginTop:"10px"
+         }}>Login</Button>:<Button color="error" css={{
+          width:"fit-content",
+          marginTop:"10px"
+         }}>Like</Button>}
         </div>
          <Comments/>
     </div>
