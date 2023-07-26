@@ -1,12 +1,10 @@
-import connectMongo from '@/Backend/Utils/connect'
-import VerifyToken from '@/Backend/Utils/middleWare'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import connectMongo from "@/Backend/Utils/connect";
+import VerifyToken from "@/Backend/Utils/middleWare";
+import { NextApiRequest, NextApiResponse } from "next";
 const user=require('../../../Backend/Models/userSchema')
-const blog=require('../../../Backend/Models/blogs')
 type Data = {
-  name: string
-}
-
+    name: string
+  }
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
@@ -33,7 +31,14 @@ export default async function handler(
     if(req.method=="GET"){
         const {UserId}=req.query
         try{
-            const doc=await user.findOne({_id:UserId}).select("_id name liked myBlog email").populate("myBlog","_id users title discription date").populate("liked").exec()
+            const doc=await user.findOne({_id:UserId}).select("myBlog").populate({
+                path : 'myBlog',
+                select:"_id users title discription createdAt",
+                populate : {
+                  path : 'users',
+                  select:"name"
+                }
+              }).exec()
             const response:any={
                 message:"success",
                 Blogs:doc

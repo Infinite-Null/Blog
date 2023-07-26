@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import type { NextApiRequest, NextApiResponse } from 'next'
 const bcrypt = require('bcrypt');
 // const BlogS=require('../../Backend/Models/Blogs')
-const user=require('../../../Backend/Models/User')
+const user=require('../../../Backend/Models/userSchema')
 type Data = {
   name: string
 }

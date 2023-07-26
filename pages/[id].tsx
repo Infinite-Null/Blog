@@ -2,10 +2,12 @@ import { Button, Card, Input, Loading, Text } from "@nextui-org/react";
 import classes from '../styles/Create/Create.module.css'
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import { useState, useEffect, SetStateAction, Dispatch, useContext } from 'react';
 import axios from "axios";
 import dayjs from "dayjs";
+import BlogContext from "@/Context/blogContext";
 export default function App(){
+  
   type Fetched={
     message: string,
     details: {
@@ -102,6 +104,10 @@ export default function App(){
     </div>
    )
 }
+
+
+
+
 function Comments({id}:{id:string}){
   type comments={
     message: string,
@@ -127,8 +133,6 @@ function Comments({id}:{id:string}){
 })
 
 
-
-
 const [input,setInput]=useState("")
  const[loding,setLoding]=useState(false)
  const[commentLoding,setcommentLoding]=useState(false)
@@ -138,8 +142,9 @@ async function GetComments(){
 }
 
  
-
+const user=useContext(BlogContext)
  async function AddComment(){
+  user?.setUSer(()=>false)
   if(input==""){
     alert("Please write something..")
     return

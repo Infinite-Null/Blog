@@ -3,11 +3,13 @@ import type { AppProps } from 'next/app'
 import  NavBar  from '@/Components/NavBar/NavBar';
 import { NextUIProvider } from '@nextui-org/react'
 import { SessionProvider } from 'next-auth/react';
+import BlogState from '@/Context/blogState';
 
 export default function App({ Component, pageProps }: AppProps) {
  
   return <SessionProvider>
-    <NextUIProvider>
+   <BlogState>
+   <NextUIProvider>
   <div style={{
     display:"flex",
     alignItems:"center",
@@ -18,5 +20,6 @@ export default function App({ Component, pageProps }: AppProps) {
    <NavBar/>
    <Component {...pageProps} />
    </NextUIProvider>
+   </BlogState>
   </SessionProvider>
 }

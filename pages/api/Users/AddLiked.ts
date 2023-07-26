@@ -29,7 +29,7 @@ export default async function handler(
     await connectMongo()
     if(req.method=="POST"){
     const{blogId,userId}=req.body
-    const user=require('../../../Backend/Models/user')
+    const user=require('../../../Backend/Models/userSchema')
     user.updateOne({_id:userId},{$push:{
         liked:blogId
     }}).then((doc:any)=>{
