@@ -16,7 +16,7 @@ export default function Home() {
   // const totalPage=Math.ceil(6)
   async function getData(){
     setLoding(()=>true)
-   const users= await axios.get(`http://localhost:3000/api/Blogs?page${page}`)
+   const users= await axios.get(`/api/Blogs?page${page}`)
    const finalValue={
     Blogs:users.data.Blogs
    }
@@ -26,7 +26,7 @@ export default function Home() {
     setLoding(()=>false)
   }
  useEffect(() => {
-  getData(); // run it, run it
+  getData()
   return () => {
   };
 },[])

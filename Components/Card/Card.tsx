@@ -1,6 +1,7 @@
 import { Card, Text } from "@nextui-org/react";
 import classes from "./Card.module.css"
 import { motion } from 'framer-motion';
+import { useRouter } from "next/router";
 export default function CardB({title,date,discription,name,id}:{
   title:string,
   date:string,
@@ -8,7 +9,9 @@ export default function CardB({title,date,discription,name,id}:{
   name:string,
   id:string
 }&any){
+  const router =useRouter()
   const text=discription
+
     return <motion.div  
     initial={{
       y:100,
@@ -18,6 +21,9 @@ export default function CardB({title,date,discription,name,id}:{
     }}
     className={classes.card}>
       <Card
+      onClick={()=>{
+        router.push(`/${id}`)
+      }}
       isPressable
       isHoverable
       borderWeight="bold"
