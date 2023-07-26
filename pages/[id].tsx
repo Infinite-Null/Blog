@@ -113,7 +113,7 @@ function Comments({id}:{id:string}){
       }[]
     }
 }
-  const Data=useSession()
+  const Data:any=useSession()
   const router=useRouter()
   const [Comments,SetComments]:[comments,Dispatch<SetStateAction<comments>>]=useState({
     message:"",
@@ -125,12 +125,45 @@ function Comments({id}:{id:string}){
         }]
     }
 })
+
+
+
+
 const [input,setInput]=useState("")
  const[loding,setLoding]=useState(false)
+ const[commentLoding,setcommentLoding]=useState(false)
 async function GetComments(){
   const data=await axios.get(`/api/Comment?BlogId=${id}`)
   SetComments((prev)=>prev=data.data)
 }
+
+ 
+
+ async function AddComment(){
+  if(input==""){
+    alert("Please write something..")
+    return
+  }
+  try{
+  setcommentLoding(true)
+  const response=await axios.post("/api/Comment",{
+      Name:Data.data?.user?.Name??"",
+      Comment:input,
+      BlogId:id
+  },{
+    headers:{
+      Authorization:`Bearer ${Data?.data?.user?.token}`
+    }
+  })
+  setcommentLoding(false)
+   GetComments()
+   
+}catch(e){
+    console.log(e)
+  }
+ }
+
+
 useEffect(()=>{
   setLoding(()=>true)
   GetComments()
@@ -165,9 +198,13 @@ useEffect(()=>{
       css={{
         width:"fit-content",
         marginTop:"10px"
-       }}>Login</Button>:<Button color="secondary" auto ghost css={{marginTop:"10px",marginLeft:"10px"}}>
+       }}>Login</Button>:(commentLoding===false)?<Button color="secondary" 
+       onPress={AddComment}
+       auto ghost css={{marginTop:"10px",marginLeft:"10px"}}>
       {">"}
-    </Button>}
+    </Button>:<Button disabled auto ghost  css={{marginTop:"10px",marginLeft:"10px"}}>
+          <Loading type="points-opacity" color="currentColor" size="sm" />
+        </Button>}
          </div>
        </>}
     </div>
