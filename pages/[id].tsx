@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useState, useEffect, SetStateAction, Dispatch, useContext } from 'react';
 import axios from "axios";
 import dayjs from "dayjs";
-import BlogContext from "@/Context/blogContext";
 export default function App(){
   
   type Fetched={
@@ -21,7 +20,7 @@ export default function App(){
         createdAt: string,
     }
   }
-  const Data=useSession()
+  const Data:any=useSession()
   const router=useRouter()
   const [Blog,SetBlog]:[Fetched,Dispatch<SetStateAction<Fetched>>]=useState({
     message: "Success",
@@ -37,24 +36,55 @@ export default function App(){
     }
   })
   const [loding,setLoding]=useState(false)
+  const [liked,setLiked]=useState(false)
    async function FetchData(){
     try{
-      setLoding(()=>true)
-      const Data=await axios.get(`/api/DetailsBlogs?BlogId=${router.query.id}`)
-      const FinalData=Data.data
+      const Data1=await axios.get(`/api/DetailsBlogs?BlogId=${router.query.id}`)
+      const FinalData=Data1.data
       SetBlog((prev)=>prev=FinalData)
-      setLoding(()=>false)
+      if(Data.status!=='loading'&&Data.status!=='unauthenticated'){
+        const response=await axios.get(`/api/Users/GetUserLiked?UserId=${Data.data?.user?._id}`,{
+          headers:{
+            Authorization:`Bearer ${Data.data?.user?.token}`
+          }
+        })
+        const found=response.data.Blogs.liked.find((e:any)=>e._id==router.query.id)
+        if(found!==undefined){
+          setLiked(()=>true)
+        }else{
+          setLiked(()=>false)
+        }
+      }
+      
     }catch(e){
       console.log(e)
     }
    }
+ async function GetInitialData() {
+  setLoding(()=>true)
+  await FetchData()
+  setLoding(()=>false)
+ }
+
+ async function AddLiked(){
+  await axios.post('/api/Users/AddLiked',{
+    blogId:router.query.id,
+    userId:Data.data?.user?._id
+},{
+  headers:{
+    Authorization:`Bearer ${Data.data?.user?.token}`
+  }
+})
+await FetchData()
+}
+
 
   useEffect(()=>{
   if(!router.query.id){
       router.replace('/')
       return;
     }
-  FetchData()
+    GetInitialData()
     return ()=>{
 
     }
@@ -63,7 +93,8 @@ export default function App(){
      return()=>{
 
      }
-  },[Blog])
+  },[Blog,liked,loding])
+  console.log(loding)
    return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
       {(loding)&&<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"80vh"}}><Loading size="xl" color='secondary'/></div>}
@@ -95,10 +126,15 @@ export default function App(){
         css={{
           width:"fit-content",
           marginTop:"10px"
-         }}>Login</Button>:<Button color="error" css={{
+         }}>Login</Button>:(liked===true)?<Button color="error" css={{
           width:"fit-content",
           marginTop:"10px"
-         }}>Like</Button>}
+         }}>Liked</Button>:<Button color="secondary" css={{
+          width:"fit-content",
+          marginTop:"10px"
+         }}
+         onPress={AddLiked}
+         >Like</Button>}
         </div>
          <Comments id={router.query.id as string}/></>}
     </div>
@@ -142,9 +178,7 @@ async function GetComments(){
 }
 
  
-const user=useContext(BlogContext)
  async function AddComment(){
-  user?.setUSer(()=>false)
   if(input==""){
     alert("Please write something..")
     return

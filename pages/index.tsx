@@ -6,12 +6,9 @@ import axios from 'axios'
 import { useState,useEffect, Dispatch, SetStateAction, useContext } from 'react';
 import CardB from '@/Components/Card/Card'
 import dayjs from 'dayjs'
-import BlogContext from '@/Context/blogContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const user=useContext(BlogContext)
-  console.log(user)
   const [blogs,setBlogs]:[any,Dispatch<SetStateAction<any>>,]=useState(null)
   const [loding,setLoding]=useState(false)
   const [page,setPage]=useState(1)
