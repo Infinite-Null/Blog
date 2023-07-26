@@ -37,6 +37,7 @@ export default function App(){
   })
   const [loding,setLoding]=useState(false)
   const [liked,setLiked]=useState(false)
+  const [likedLoding,setLikedLoding]=useState(false)
    async function FetchData(){
     try{
       const Data1=await axios.get(`/api/DetailsBlogs?BlogId=${router.query.id}`)
@@ -67,6 +68,7 @@ export default function App(){
  }
 
  async function AddLiked(){
+  setLikedLoding(()=>true)
   await axios.post('/api/Users/AddLiked',{
     blogId:router.query.id,
     userId:Data.data?.user?._id
@@ -76,6 +78,20 @@ export default function App(){
   }
 })
 await FetchData()
+setLikedLoding(()=>false)
+}
+async function RemoveLiked(){
+  setLikedLoding(()=>true)
+  await axios.post('/api/Users/RemoveLiked',{
+    blogId:router.query.id,
+    userId:Data.data?.user?._id
+},{
+  headers:{
+    Authorization:`Bearer ${Data.data?.user?.token}`
+  }
+})
+await FetchData()
+setLikedLoding(()=>false)
 }
 
 
@@ -129,12 +145,22 @@ await FetchData()
          }}>Login</Button>:(liked===true)?<Button color="error" css={{
           width:"fit-content",
           marginTop:"10px"
-         }}>Liked</Button>:<Button color="secondary" css={{
+         }}
+         onPress={()=>{
+          if(likedLoding===false){
+            RemoveLiked()
+          }
+         }}
+         >{(likedLoding===false)?"Liked":<Loading type="points-opacity" color="currentColor" size="sm" />}</Button>:<Button color="secondary" css={{
           width:"fit-content",
           marginTop:"10px"
          }}
-         onPress={AddLiked}
-         >Like</Button>}
+         onPress={()=>{
+          if(likedLoding===false){
+            AddLiked()
+          }
+         }}
+         >{(likedLoding===false)?"Like":<Loading type="points-opacity" color="currentColor" size="sm" />}</Button>}
         </div>
          <Comments id={router.query.id as string}/></>}
     </div>
