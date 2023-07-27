@@ -1,9 +1,6 @@
-![Screenshot (65)](https://github.com/Infinite-Null/Blog/assets/97950192/b3c273fe-0215-4c5c-b927-996a747338ae)
-![Screenshot (64)](https://github.com/Infinite-Null/Blog/assets/97950192/98015ccc-9e9a-47c1-b6f0-1e54364e5d05)
 # Full Stack Blog Webapp
 
 ![Picsart_23-07-28_03-49-19-144](https://github.com/Infinite-Null/Blog/assets/97950192/1bde6ee2-d060-4731-ad66-ae4d13f0bc4e)
-
 
 ## About
 
