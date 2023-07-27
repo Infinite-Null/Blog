@@ -84,7 +84,7 @@ export default function App() {
             fontSize:"20px",
             paddingLeft:"20px",
             color:"black"
-          }} href="#">About</Link>
+          }} href="/About">About</Link>
         </Navbar.Content>
         <Navbar.Content
           css={{
