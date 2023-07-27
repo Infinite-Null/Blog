@@ -8,7 +8,7 @@ export default function CardB({title,date,discription,name,id}:{
   discription:string,
   name:string,
   id:string
-}&any){
+}){
   const router =useRouter()
   const text=discription
 
