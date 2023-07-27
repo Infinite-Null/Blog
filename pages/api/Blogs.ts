@@ -4,7 +4,7 @@ import connectMongo from '@/Backend/Utils/connect'
 import VerifyToken from '@/Backend/Utils/middleWare'
 import mongoose from 'mongoose'
 import type { NextApiRequest, NextApiResponse } from 'next'
-const BlogS=require('../../Backend/Models/Blogs')
+const BlogS=require('../../Backend/Models/blogs')
 const user=require('../../Backend/Models/userSchema')
 type Data = {
   name: string

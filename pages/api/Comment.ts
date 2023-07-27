@@ -1,7 +1,7 @@
 import connectMongo from '@/Backend/Utils/connect'
 import VerifyToken from '@/Backend/Utils/middleWare'
 import type { NextApiRequest, NextApiResponse } from 'next'
-const BlogS=require('../../Backend/Models/Blogs')
+const BlogS=require('../../Backend/Models/blogs')
 type Data = {
     name: string
   }

@@ -1,6 +1,6 @@
 import connectMongo from '@/Backend/Utils/connect'
 import type { NextApiRequest, NextApiResponse } from 'next'
-const BlogS=require('../../Backend/Models/Blogs')
+const BlogS=require('../../Backend/Models/blogs')
 type Data = {
     name: string
   }
