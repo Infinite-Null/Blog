@@ -1,38 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Screenshot (65)](https://github.com/Infinite-Null/Blog/assets/97950192/b3c273fe-0215-4c5c-b927-996a747338ae)
+![Screenshot (64)](https://github.com/Infinite-Null/Blog/assets/97950192/98015ccc-9e9a-47c1-b6f0-1e54364e5d05)
+# Full Stack Blog Webapp
 
-## Getting Started
+![Picsart_23-07-28_03-49-19-144](https://github.com/Infinite-Null/Blog/assets/97950192/1bde6ee2-d060-4731-ad66-ae4d13f0bc4e)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## About
+
+Created a full stack blog webapp with user auth using next-auth where user can create blogs, view the blogs created by other user, comment on the blogs and even like a blog posted in web app. 
+
+## How to Install and Run the Project
+
+To install the project frist have to make the clone of project locally :
+
+```
+git clone https://github.com/Infinite-Null/Blog
+cd Blog
+npm install #or yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To strat the project at your LocalHost :
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Now the server is running in http://localhost:3000/
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Screenshots
+![Screenshot (62)](https://github.com/Infinite-Null/Blog/assets/97950192/3d0f002d-1862-49a1-8dd1-ad05edad491d)
+![Screenshot (63)](https://github.com/Infinite-Null/Blog/assets/97950192/43cf2367-493b-48c6-aab4-dc80503269b0)
+![Scr![Screenshot (64)](https://github.com/Infinite-Null/Blog/assets/97950192/87d4c901-ff1a-4bdc-865c-77f401ecad00)
+eenshot (65)](https://github.com/Infinite-Null/Blog/assets/97950192/d6f9407f-92b2-47bf-8923-3a050cbd9768)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Features
+* Minimal Ui
+* Easy To use
+* Secure
+* Comment
+* Like
+* Favourite
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+>Copyright © 2023 Infinite-Null
+>
+>Blog is a free software licensed under GPL v3.0
+>
+>It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+>
+>without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
