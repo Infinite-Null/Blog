@@ -28,6 +28,9 @@ export default function CardB({title,date,discription,name,id}:{
       isHoverable
       borderWeight="bold"
       variant="bordered"
+      css={{
+        height:"455px"
+      }}
     >
       <Card.Header>
             <Text b css={{
