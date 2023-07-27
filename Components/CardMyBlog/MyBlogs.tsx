@@ -1,8 +1,11 @@
-import { Button, Card, Text } from "@nextui-org/react";
+import { Button, Card, Loading, Text } from "@nextui-org/react";
 import classes from "../Card/Card.module.css"
 import { motion } from 'framer-motion';
 import { useRouter } from "next/router";
-export default function MyBlogs({title,date,discription,name,id}:{
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useState } from 'react';
+export default function MyBlogs({title,date,discription,name,id,fetchBlog}:{
   title:string,
   date:string,
   discription:string,
@@ -11,8 +14,23 @@ export default function MyBlogs({title,date,discription,name,id}:{
   fetchBlog:()=>void
 }){
   const router =useRouter()
+  const Data:any=useSession()
+  const [loding,setLoding]=useState(false)
   const text=discription
-
+   async function DeleteBlog() {
+    setLoding(()=>true)
+    try{
+        await axios.delete(`/api/Blogs?BlogId=${id}`,{
+            headers:{
+                Authorization:`Bearer ${Data.data?.user.token}`
+            }
+        })
+    }catch(e){
+        console.log(e)
+    }
+    setLoding(()=>false)
+   fetchBlog()
+   }
     return <motion.div  
     initial={{
       y:100,
@@ -52,7 +70,8 @@ export default function MyBlogs({title,date,discription,name,id}:{
         }}>{`- ${name}`}</Text>
       </Card.Body>
       <Card.Footer>
-       <Button color='error'>Delete</Button>
+        {(loding==true)&&<Button disabled><Loading type="points" size="sm"/></Button>}
+      {(loding===false)&& <Button color='error' onPress={DeleteBlog}>Delete</Button>}
       </Card.Footer>
     </Card>
     </motion.div>
