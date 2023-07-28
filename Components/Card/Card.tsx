@@ -55,6 +55,9 @@ export default function CardB({title,date,discription,name,id}:{
           fontSize:"1.2rem"
         }}>{`- ${name}`}</Text>
       </Card.Footer>
+      <Card.Footer>
+        <Text b color="secondary">{"Tap For Detail Page of Blog ->"}</Text>
+      </Card.Footer>
     </Card>
     </motion.div>
 }
