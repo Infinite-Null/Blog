@@ -2,6 +2,7 @@ import { Navbar, Text, Avatar, Dropdown} from "@nextui-org/react";
 import Link from "next/link";
 import { Layout } from "./Layout";
 import { useSession,signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 export default function App() {
   const collapseItems = [
     "Home",
@@ -10,8 +11,9 @@ export default function App() {
     "About",
   ];
   const Data:any=useSession()
-  function userProfile(email:string){
 
+  function userProfile(email:string){
+     const router=useRouter()
     return <Dropdown placement="bottom-right">
     <Navbar.Item>
       <Dropdown.Trigger>
@@ -31,6 +33,10 @@ export default function App() {
         if(actionKey==="logout"){
           signOut()
         }
+        if(actionKey==='settings')
+        {
+          router.push('/Account')
+        }
       }}
     >
       <Dropdown.Item key="profile" css={{ height: "$18" }}>
@@ -42,7 +48,7 @@ export default function App() {
         </Text>
       </Dropdown.Item>
       <Dropdown.Item key="settings" withDivider>
-        <Link href="/Account">Account</Link>
+        Account
       </Dropdown.Item>
       <Dropdown.Item key="logout" withDivider color="error">
         Log Out

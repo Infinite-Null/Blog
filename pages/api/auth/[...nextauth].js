@@ -29,10 +29,11 @@ export default NextAuth({
        const token=await jwt.sign({},process.env.KEY,{ expiresIn: '30d' })
        const user={
         _id:result._id,
-        Name:result.Name,
+        Name:result.name,
         email:result.email,
         token:token
       }
+      console.log(user)
       return user
       },
     }),
