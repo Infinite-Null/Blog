@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Layout } from "./Layout";
 import { useSession,signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 export default function App() {
+  const [num,setNum]=useState(true)
   const collapseItems = [
     "Home",
     "Create",
@@ -11,7 +13,10 @@ export default function App() {
     "About",
   ];
   const Data:any=useSession()
+  const ref:any = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleClick = () => isOpen && ref.current!.click();
   function userProfile(email:string){
      const router=useRouter()
     return <Dropdown placement="bottom-right">
@@ -59,7 +64,8 @@ export default function App() {
   return (
     <Layout>
       <Navbar isBordered variant="sticky">
-        <Navbar.Toggle showIn="xs" />
+        <Navbar.Toggle showIn="xs" ref={ref}
+          onChange={(isSelected:any) => setIsOpen(()=>isSelected)}/>
         <Text b>Bloging Made Easy</Text>
         <Navbar.Content
           enableCursorHighlight
@@ -102,7 +108,7 @@ export default function App() {
         >
           {(Data.status!=='loading')&&(Data.status==='authenticated')?userProfile(Data?.data?.user?.email??""):<Link href={'/Login'}>Login</Link>}
         </Navbar.Content>
-        <Navbar.Collapse>
+        <Navbar.Collapse >
           {collapseItems.map((item, index) => (
             <Navbar.CollapseItem
               key={item}
@@ -113,9 +119,9 @@ export default function App() {
               isActive={index === 2}
             >
               <Link
+              onClick={handleClick}
                 color="inherit"
-                href={(item=='Home')?"/":`/${item}`}
-              >
+                href={(item=='Home')?"/":`/${item}`}>
                 {item}
               </Link>
             </Navbar.CollapseItem>
