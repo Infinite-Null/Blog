@@ -53,7 +53,7 @@ export default function App() {
         </Text>
       </Dropdown.Item>
       <Dropdown.Item key="settings" withDivider>
-        Account
+        Your Profile
       </Dropdown.Item>
       <Dropdown.Item key="logout" withDivider color="error">
         Log Out

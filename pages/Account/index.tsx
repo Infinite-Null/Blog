@@ -102,7 +102,7 @@ useEffect(()=>{
     </div>
     {loding===true&&<div style={{height:"70vh", display:"flex",alignItems:"center",justifyContent:"center"}}><Loading size='xl' color='secondary'/></div>}
    {(loding===false)&&<div className={classes.blogs}>
-        {blogs.Blogs.myBlog.map((e,i)=><MyBlogs title={e.title} date={e.createdAt} discription={e.discription} id={e._id} name={e.users.name} key={i} fetchBlog={FetchBlogs}/>)}
+        {blogs?.Blogs?.myBlog?.map((e,i)=><MyBlogs title={e.title} date={e.createdAt} discription={e.discription} id={e._id} name={e.users.name} key={i} fetchBlog={FetchBlogs}/>)}
     </div>}
   </div>
   );

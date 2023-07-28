@@ -73,6 +73,9 @@ export default function MyBlogs({title,date,discription,name,id,fetchBlog}:{
         {(loding==true)&&<Button disabled><Loading type="points" size="sm"/></Button>}
       {(loding===false)&& <Button color='error' onPress={DeleteBlog}>Delete</Button>}
       </Card.Footer>
+      <Card.Footer>
+        <Text b color="secondary">{"Tap For Detail Page of Blog ->"}</Text>
+      </Card.Footer>
     </Card>
     </motion.div>
 }
