@@ -1,6 +1,9 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-
+import connectMongo from '../../../Backend/Utils/connect'
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const userBase=require('../../../Backend/Models/userSchema')
 export default NextAuth({
   session:{
     jwt:false
@@ -8,37 +11,29 @@ export default NextAuth({
   secret:"sece",
   providers: [
     CredentialsProvider({
-      async authorize(credentials) {
-        const authResponse = await fetch("http://localhost:3000/api/Users/Login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email:credentials.email,
-            password:credentials.password
-          }),
-        })
-
-        if (!authResponse.ok) {
-          return null
+      async authorize(credentials){
+        await connectMongo()
+       const result=await userBase.findOne({email:credentials.email})
+       if(result===null){
+        throw new Error("User Not Found")
+       }
+       const pass=await bcrypt.compare(credentials.password,result.password)
+       if(pass===false){
+        throw new Error("Incorrect Password")
+       }
+       console.log('Here')
+       const head={
+        name:result.name,
+        _id:result._id
         }
-        const res = await authResponse.json()
-        if(res.details=="No User Found"){
-          throw new Error("User Not Found")
-          return null
-        }
-        if(res.details=="Password Incorrect"){
-          throw new Error("Incorrect Password")
-          return null
-        }
-        const user={
-          _id:res.details._id,
-          Name:res.details.Name,
-          email:res.details.email,
-          token:res.token
-        }
-        return user
+       const token=await jwt.sign({},process.env.KEY,{ expiresIn: '30d' })
+       const user={
+        _id:result._id,
+        Name:result.Name,
+        email:result.email,
+        token:token
+      }
+      return user
       },
     }),
   ],
