@@ -16,11 +16,11 @@ export default function Home() {
   // const totalPage=Math.ceil(6)
   async function getData(){
     setLoding(()=>true)
-   const users= await axios.get(`/api/Blogs?page${page}`)
+   const users= await axios.get(`/api/Blogs?page=${page}`)
    const finalValue={
     Blogs:users.data.Blogs
    }
-    setBlogs(()=>finalValue);
+    setBlogs((prev:any)=>prev=finalValue);
     const total=Math.ceil(users.data.Total/users.data.EachPage)
     setTotal(()=>total)
     setLoding(()=>false)
@@ -29,7 +29,7 @@ export default function Home() {
   getData()
   return () => {
   };
-},[])
+},[page])
 useEffect(()=>{
 },[blogs])
 
@@ -52,10 +52,8 @@ useEffect(()=>{
     </div>
     {(blogs?.Blogs?.length!==0)&&<Pagination color="secondary" shadow total={totalPage} initialPage={page} 
     onChange={(Selectedpage)=>{
-      if(page!=Selectedpage){
-      setPage(Selectedpage)
-      getData()
-      }
+      setPage(()=>Selectedpage)
+   
     }}
     css={{
       marginTop:"20px",
